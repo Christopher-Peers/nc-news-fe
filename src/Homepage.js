@@ -27,6 +27,13 @@ class Homepage extends React.Component {
       .catch(err => console.log(err));
   }
 
+  fetchArticlesByTopic = (topic) => {
+    return fetch(`${process.env.REACT_APP_API_URL}/topics/${topic}/articles`)
+      .then(buffer => buffer.json())
+      .then(articles => articles)
+      .catch(err => console.log(err));
+  }
+
   componentWillMount() {
     this.fetchUsers()
       .then(res => this.setState({
@@ -59,10 +66,16 @@ class Homepage extends React.Component {
 
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.fetchArticlesByTopic(nextProps.match.params.topic)
+      .then(res => this.setState({articles: res.articles}))
+      .catch(err => console.log(err));
+}
+
   render() {
 
     return (
-      <div className="row">
+      <div className="row"> 
         <Articles articles={this.state.articles} />
         <TopPosters topPosters={this.state.topPosters} />
       </div>

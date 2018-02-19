@@ -2,4 +2,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #f4f3f2
+}
+
+nav {
+  background-color: white;
 }
