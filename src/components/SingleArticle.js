@@ -27,7 +27,7 @@ class SingleArticle extends React.Component {
 
 
   render() {
-    console.log(this.props.article)
+    
     return (
 
       <article className="card mt-3" style={{ "box-shadow": "4px 4px 3px Gainsboro" }} key={this.props.i}>
@@ -39,6 +39,7 @@ class SingleArticle extends React.Component {
 
         <div className="card-footer container-fluid">
           <div className="row">
+
             <div className="col-3 text-center">
               <i class="fa fa-user-circle-o" aria-hidden="true"></i><span className="d-none d-md-block">{` ${this.props.article.created_by}`}</span>
             </div>
@@ -54,9 +55,11 @@ class SingleArticle extends React.Component {
                 else this.setState({commentsVisible : false})
               }} ></i><span className="d-none d-md-block">{` ${this.state.comments.length}`}</span>
             </div>
+
           </div>
-          <div className="bg-faded p-2" style={{ display: (this.state.commentsVisible ? 'block' : 'none') }}>
-            {}
+
+          <div className="row bg-faded p-2" style={{ display: (this.state.commentsVisible ? 'block' : 'none') }}>
+            {this.state.comments.map(comment => (<p>{comment.body}</p>))}
           </div>
         </div>
 
