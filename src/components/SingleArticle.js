@@ -5,11 +5,29 @@ class SingleArticle extends React.Component {
   state = {
     comments: [],
     commentsVisible: false,
-    votes: 0
+    votes: this.props.article.votes
   }
 
-  render() {
+  getArticleComments = (id) => {
 
+    return fetch(`${process.env.REACT_APP_API_URL}/articles/${id}/comments`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          comments: res.comments
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
+  componentWillMount() {
+    this.getArticleComments(this.props.article._id)
+  }
+
+
+
+  render() {
+    console.log(this.props.article)
     return (
 
       <article className="card mt-3" style={{ "box-shadow": "4px 4px 3px Gainsboro" }} key={this.props.i}>
@@ -22,23 +40,23 @@ class SingleArticle extends React.Component {
         <div className="card-footer container-fluid">
           <div className="row">
             <div className="col-3 text-center">
-              <i class="fa fa-user-circle-o" aria-hidden="true"></i>{` ${this.props.article.created_by}`}
+              <i class="fa fa-user-circle-o" aria-hidden="true"></i><span className="d-none d-md-block">{` ${this.props.article.created_by}`}</span>
             </div>
             <div className="col-3 text-center">
-              <i class="fa fa-question-circle-o" aria-hidden="true"></i>{` ${this.props.article.belongs_to}`}
+              <i class="fa fa-question-circle-o" aria-hidden="true"></i><span className="d-none d-md-block">{` ${this.props.article.belongs_to}`}</span>
             </div>
             <div className="col-3 text-center">
-              <i class="fa fa-heart-o" aria-hidden="true"></i>{` likes`}
+              <i class="fa fa-heart-o" aria-hidden="true"></i><span className="d-none d-md-block">{` ${this.state.votes}`}</span>
             </div>
             <div className="col-3 text-center">
               <i class="fa fa-comment-o" aria-hidden="true" onClick={() => {
                 if (this.state.commentsVisible === false) this.setState({commentsVisible : true})
                 else this.setState({commentsVisible : false})
-              }} ></i>{` comments`}
+              }} ></i><span className="d-none d-md-block">{` ${this.state.comments.length}`}</span>
             </div>
           </div>
           <div className="bg-faded p-2" style={{ display: (this.state.commentsVisible ? 'block' : 'none') }}>
-            <p>Visible</p>
+            {}
           </div>
         </div>
 
