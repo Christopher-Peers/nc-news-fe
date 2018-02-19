@@ -19,7 +19,7 @@ const TopPosters = (props) => {
           
           return (
 
-            <div className="card mt-2" style={{ "box-shadow": "4px 4px 3px Gainsboro" }}>
+            <div className="card mt-3" style={{ "box-shadow": "4px 4px 3px Gainsboro" }}>
               <img className="card-img-top img-fluid" src={image} alt={`${user[0]} avatar`} />
               <div className="card-block card-footer d-flex justify-content-around">
                 <h6 className="card-text text-center">{user[0]}</h6>

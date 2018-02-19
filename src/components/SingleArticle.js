@@ -20,11 +20,34 @@ class SingleArticle extends React.Component {
       .catch(err => console.log(err))
   }
 
+  postNewArticleComment = (id, userComment) => {
+
+    return fetch(`https://${process.env.REACT_APP_API_URL}/articles/${id}/comments`, {
+      method: 'POST',
+      body: { comment: userComment }
+    })
+      .then(buffer => buffer.json())
+      .then(res => res)
+      .catch(err => console.log(err))
+  };
+
+  changeVote = (type, id, modifier) => {
+
+    return fetch(`${process.env.REACT_APP_API_URL}/${type}/${id}?vote=${modifier}`, { method: 'PUT' })
+      .then(buffer => buffer.json())
+      .then(res => {
+        if (type === 'articles') {
+          this.setState({votes: res.votes})
+        }
+        return res
+      })
+      .catch(err => console.log(err))
+
+  }
+
   componentWillMount() {
     this.getArticleComments(this.props.article._id)
   }
-
-
 
   render() {
     
@@ -41,25 +64,34 @@ class SingleArticle extends React.Component {
           <div className="row">
 
             <div className="col-3 text-center">
-              <i class="fa fa-user-circle-o" aria-hidden="true"></i><span className="d-none d-md-block">{` ${this.props.article.created_by}`}</span>
+              <i class="fa fa-user-circle-o" aria-hidden="true" /><span className="d-none d-md-block">{` ${this.props.article.created_by}`}</span>
             </div>
             <div className="col-3 text-center">
-              <i class="fa fa-question-circle-o" aria-hidden="true"></i><span className="d-none d-md-block">{` ${this.props.article.belongs_to}`}</span>
+              <i class="fa fa-question-circle-o" aria-hidden="true" /><span className="d-none d-md-block">{` ${this.props.article.belongs_to}`}</span>
             </div>
             <div className="col-3 text-center">
-              <i class="fa fa-heart-o" aria-hidden="true"></i><span className="d-none d-md-block">{` ${this.state.votes}`}</span>
+              <i class="fa fa-heart-o" aria-hidden="true" />
+              <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeVote('articles', this.props.article._id, 'up')}} />
+              <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeVote('articles', this.props.article._id, 'down')}} />
+              <span className="d-none d-md-block">{` ${this.state.votes}`}</span>
             </div>
             <div className="col-3 text-center">
               <i class="fa fa-comment-o" aria-hidden="true" onClick={() => {
-                if (this.state.commentsVisible === false) this.setState({commentsVisible : true})
-                else this.setState({commentsVisible : false})
-              }} ></i><span className="d-none d-md-block">{` ${this.state.comments.length}`}</span>
+                if (this.state.commentsVisible === false) this.setState({ commentsVisible: true })
+                else this.setState({ commentsVisible: false })
+              }} /><span className="d-none d-md-block">{` ${this.state.comments.length}`}</span>
             </div>
 
           </div>
 
           <div className="row bg-faded p-2" style={{ display: (this.state.commentsVisible ? 'block' : 'none') }}>
-            {this.state.comments.map(comment => (<p>{comment.body}</p>))}
+              {this.state.comments.map(comment => (
+              <p>{comment.body} | {comment.created_by} | {comment.votes} 
+                <i class="fa fa-heart-o" aria-hidden="true" /> 
+                <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeVote('comments',comment._id, 'up')}} />
+                <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeVote('comments',comment._id, 'down')}} />
+            </p>))}
+            <input type="text" placeholder="your comment here"></input><button type="submit">Submit</button>
           </div>
         </div>
 
