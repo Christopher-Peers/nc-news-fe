@@ -5,7 +5,8 @@ class Navbar extends React.Component {
 
   state = {
     topics: [],
-    topicsLoaded: false
+    topicsLoaded: false,
+    loggedInUser: 'northcoder'
   }
 
   fetchTopics = () => {
@@ -54,37 +55,11 @@ class Navbar extends React.Component {
               </li>
             </ul>
           </div>
+          <span className="mr-2 d-none d-md-block">Current user:</span> 
+          <img className="rounded-circle d-none d-md-block" src="https://avatars3.githubusercontent.com/u/6791502?v=3&s=200" alt="Logged in user" style={{width: "4rem"}} />
         </nav>
-
-        // <nav className="navbar sticky-top navbar-toggleable-xl navbar-light">
-        //   <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        //     <span className="navbar-toggler-icon"></span>
-        //   </button>
-        //   <Link to="/" className="navbar-brand"><img src={'../../img/nc_badge_short.png'} alt="Northcoders logo" style={{ width: '100px' }} /></Link>
-
-        //   <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        //     <ul className="navbar-nav mr-auto">
-        //       <li className="nav-item active dropdown">
-        //         <a className="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        //           Topics</a>
-                // <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                //   {this.state.topics.map(topic => (<Link className="dropdown-item" to={`/topics/${topic.slug}/articles`}>{`${topic.title}`}</Link>))}
-                // </div>
-        //       </li>
-        //       <li className="nav-item">
-        //         <Link className="nav-link" to="/articles">Articles</Link>
-        //       </li>
-        //       <li className="nav-item">
-        //         <Link className="nav-link" to="/users">Users</Link>
-        //       </li>
-        //     </ul>
-
-        //   </div>
-        //     <Link to="https://www.linkedin.com/company/northcoders"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></Link>
-        //     <Link to="https://twitter.com/northcoders"><i className="fa fa-twitter-square fa-2x" aria-hidden="true"></i></Link>
-        //     <Link to="https://en-gb.facebook.com/northcoders/"><i className="fa fa-facebook-square fa-2x" aria-hidden="true"></i></Link>
-        // </nav>
       )
+
     } else {
 
       return (

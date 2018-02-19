@@ -72,7 +72,7 @@ class Homepage extends React.Component {
 }
 
   render() {
-
+    
     return (
       <div className="row"> 
         <Articles articles={this.state.articles} />
