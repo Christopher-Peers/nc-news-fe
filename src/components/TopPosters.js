@@ -28,6 +28,7 @@ const TopPosters = (props) => {
             </div>
 
           )
+          
         })}
       </aside>
     )
