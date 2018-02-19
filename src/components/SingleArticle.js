@@ -67,7 +67,7 @@ class SingleArticle extends React.Component {
           <div className="row">
 
             <div className="col-3 text-center">
-              <i class="fa fa-user-circle-o" aria-hidden="true" /><span className="d-none d-md-block">{` ${this.props.article.created_by}`}</span>
+              <span><i class="fa fa-user-circle-o" aria-hidden="true" /><span className="d-none d-md-block">{` ${this.props.article.created_by}`}</span></span>
             </div>
             <div className="col-3 text-center">
               <i class="fa fa-question-circle-o" aria-hidden="true" /><span className="d-none d-md-block">{` ${this.props.article.belongs_to}`}</span>
