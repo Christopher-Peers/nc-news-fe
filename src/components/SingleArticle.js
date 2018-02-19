@@ -31,16 +31,19 @@ class SingleArticle extends React.Component {
       .catch(err => console.log(err))
   };
 
-  changeVote = (type, id, modifier) => {
+  changeArticleVote = (articleId, modifier) => {
 
-    return fetch(`${process.env.REACT_APP_API_URL}/${type}/${id}?vote=${modifier}`, { method: 'PUT' })
+    return fetch(`${process.env.REACT_APP_API_URL}/articles/${articleId}?vote=${modifier}`, { method: 'PUT' })
       .then(buffer => buffer.json())
-      .then(res => {
-        if (type === 'articles') {
-          this.setState({votes: res.votes})
-        }
-        return res
-      })
+      .then(res => this.setState({votes: res.votes}))
+      .catch(err => console.log(err))
+
+  }
+
+  changeCommentVotes = (commentId, modifier) => {
+
+    return fetch(`${process.env.REACT_APP_API_URL}/comments/${commentId}?vote=${modifier}`, { method: 'PUT' })
+      .then(() => this.getArticleComments(this.props.article._id))  
       .catch(err => console.log(err))
 
   }
@@ -71,9 +74,9 @@ class SingleArticle extends React.Component {
             </div>
             <div className="col-3 text-center">
               <i class="fa fa-heart-o" aria-hidden="true" />
-              <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeVote('articles', this.props.article._id, 'up')}} />
-              <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeVote('articles', this.props.article._id, 'down')}} />
-              <span className="d-none d-md-block">{` ${this.state.votes}`}</span>
+              <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'up')}} />
+              <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'down')}} />
+              <span className="d-none d-md-block" style={{ color: (this.state.votes > 0 ? "green" : "red") }}>{` ${this.state.votes}`}</span>
             </div>
             <div className="col-3 text-center">
               <i class="fa fa-comment-o" aria-hidden="true" onClick={() => {
@@ -84,12 +87,13 @@ class SingleArticle extends React.Component {
 
           </div>
 
-          <div className="row bg-faded p-2" style={{ display: (this.state.commentsVisible ? 'block' : 'none') }}>
+          <div className="row bg-faded p-2" style={{ display: (this.state.commentsVisible ? "block" : "none") }}>
               {this.state.comments.map(comment => (
+                
               <p>{comment.body} | {comment.created_by} | {comment.votes} 
                 <i class="fa fa-heart-o" aria-hidden="true" /> 
-                <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeVote('comments',comment._id, 'up')}} />
-                <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeVote('comments',comment._id, 'down')}} />
+                <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'up')}} />
+                <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'down')}} />
             </p>))}
             <input type="text" placeholder="your comment here"></input><button type="submit">Submit</button>
           </div>
