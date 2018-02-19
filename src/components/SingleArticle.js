@@ -64,25 +64,26 @@ class SingleArticle extends React.Component {
         </div>
 
         <div className="card-footer container-fluid">
-          <div className="row">
+          <div className="row justify-content-around">
 
-            <div className="col-3 text-center">
+            <div className="d-inline text-center">
               <span><i class="fa fa-user-circle-o" aria-hidden="true" /><span className="d-none d-md-inline">{` ${this.props.article.created_by}`}</span></span>
             </div>
-            <div className="col-3 text-center">
+            <div className="d-inline text-center">
               <i class="fa fa-question-circle-o" aria-hidden="true" /><span className="d-none d-md-inline">{` ${this.props.article.belongs_to}`}</span>
             </div>
-            <div className="col-3 text-center">
+            <div className="d-inline text-center">
               <i class="fa fa-heart-o" aria-hidden="true" />
+              <span style={{ color: (this.state.votes > 0 ? "green" : "red") }}>{`  ${this.state.votes}  `}</span>
               <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'up')}} />
               <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'down')}} />
-              <span style={{ color: (this.state.votes > 0 ? "green" : "red") }}>{` ${this.state.votes}`}</span>
             </div>
-            <div className="col-3 text-center">
+            <div className="d-inline text-center">
               <i class="fa fa-comment-o" aria-hidden="true" onClick={() => {
                 if (this.state.commentsVisible === false) this.setState({ commentsVisible: true })
                 else this.setState({ commentsVisible: false })
-              }} /><span> {` ${this.state.comments.length}`}</span>
+              }} />
+              <span> {` ${this.state.comments.length}`}</span>
             </div>
 
           </div>
