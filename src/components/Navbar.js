@@ -23,10 +23,23 @@ class Navbar extends React.Component {
     }
 
     render() {
-        
-        return (
-            <h1>Navbar Goes Here</h1>
-        )
+
+        if (this.state.topicsLoaded) {
+            return (
+                <nav>
+                    <h1>Navbar Goes Here</h1>
+                    {this.state.topics.map(el => (<p>{el.title}</p>))}
+                </nav>
+            )
+        } else {
+            return (
+                <nav>
+                    <h1>Navbar Goes Here</h1>
+                    <p>Loading...</p>
+                </nav>
+            )
+        }
+
     }
 
 }
