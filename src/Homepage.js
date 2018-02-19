@@ -8,7 +8,9 @@ class Homepage extends React.Component {
     users: [],
     usersLoaded: false,
     articles: [],
-    articlesLoaded: false
+    articlesLoaded: false,
+    topPosters: [],
+    topPostersLoaded: false
   }
 
   fetchUsers = () => {
@@ -38,12 +40,31 @@ class Homepage extends React.Component {
       }))
   }
 
+  componentWillUpdate(nextProps, nextState) {
+
+    if (nextState.articlesLoaded && nextState.usersLoaded && !nextState.topPostersLoaded) {
+      let userTally = {};
+      nextState.users.map(user => userTally[user.username] = {
+        avatar: user.avatar_url,
+        posts: 0
+      })
+      nextState.articles.map(article => {
+        userTally[article.created_by].posts++
+      })
+      this.setState({
+        topPosters: userTally,
+        topPostersLoaded: true,
+      })
+    }
+
+  }
+
   render() {
-    console.log(this.state.articles)
+
     return (
       <div className="row">
-        <Articles />
-        <TopPosters />
+        <Articles articles={this.state.articles} />
+        <TopPosters topPosters={this.state.topPosters} />
       </div>
     )
 
