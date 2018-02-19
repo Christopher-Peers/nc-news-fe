@@ -26,6 +26,7 @@ class Navbar extends React.Component {
   render() {
 
     if (this.state.topicsLoaded) {
+
       return (
         <nav className="navbar sticky-top navbar-toggleable-md navbar-light">
           <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,11 +42,7 @@ class Navbar extends React.Component {
         </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   {this.state.topics.map(topic => (<Link className="dropdown-item" to={`/topics/${topic.slug}/articles`}>{`${topic.title}`}</Link>))}
-                  {/* <Link className="dropdown-item" to="/topics/coding/articles">Coding</Link>
-                  <Link className="dropdown-item" to="/topics/cooking/articles">Cooking</Link>
-                  <Link className="dropdown-item" to="/topics/football/articles">Football</Link> */}
                 </div>
-                {/* <Link to="/topics" className="nav-link">Topics<span className="sr-only">(current)</span></Link> */}
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/articles">Articles</Link>
@@ -54,20 +51,22 @@ class Navbar extends React.Component {
                 <Link className="nav-link" to="/users">Users</Link>
               </li>
             </ul>
+
+          </div>
             <Link to="https://www.linkedin.com/company/northcoders"><i className="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></Link>
             <Link to="https://twitter.com/northcoders"><i className="fa fa-twitter-square fa-2x" aria-hidden="true"></i></Link>
             <Link to="https://en-gb.facebook.com/northcoders/"><i className="fa fa-facebook-square fa-2x" aria-hidden="true"></i></Link>
-
-          </div>
         </nav>
       )
     } else {
+
       return (
         <nav className="ncNav">
           <h1>Navbar Goes Here</h1>
           <p>Loading...</p>
         </nav>
       )
+
     }
 
   }
