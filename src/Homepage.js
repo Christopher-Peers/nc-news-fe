@@ -48,7 +48,7 @@ class Homepage extends React.Component {
 
     if (nextState.articlesLoaded && nextState.usersLoaded && !nextState.topPostersLoaded) {
       let userTally = {};
-      nextState.users.map(user => {
+      nextState.users.forEach(user => {
         
         userTally[user.username] = {
         avatar: user.avatar_url,
@@ -57,7 +57,7 @@ class Homepage extends React.Component {
         }
 
       })
-      nextState.articles.map(article => {
+      nextState.articles.forEach(article => {
         userTally[article.created_by].posts++
         userTally[article.created_by].lastFiveArticles.push(article) 
       })
