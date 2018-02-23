@@ -65,7 +65,6 @@ class SingleArticle extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // this.setState({votes: nextProps.article.votes})
     this.getArticleComments(nextProps.article._id)
   }
 
@@ -94,7 +93,7 @@ class SingleArticle extends React.Component {
             </div>
             <div className="d-inline text-center">
               <i class="fa fa-heart-o" aria-hidden="true" />
-              <span style={{ color: (this.props.article.votes > 0 ? "green" : "red") }}>{`  ${this.props.article.votes}  `}</span>
+              <span style={{ color: (this.props.article.votes > 0 ? "green" : "red") }}>{`  ${this.state.votes}  `}</span>
               <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'up')}} />
               <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'down')}} />
             </div>
