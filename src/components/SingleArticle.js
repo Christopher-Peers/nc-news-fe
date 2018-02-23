@@ -66,13 +66,16 @@ class SingleArticle extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.getArticleComments(nextProps.article._id)
+    if (nextProps.votes !== undefined && nextProps.votes !== this.props.votes) {
+      this.setState({votes: nextProps.votes})
+    }
   }
 
   render() {
     
     return (
 
-      <article className="card mt-3" style={{ "box-shadow": "4px 4px 3px Gainsboro" }} key={this.props.i}>
+      <article className="card mt-3" style={{ "boxShadow": "4px 4px 3px Gainsboro" }} key={this.props.i}>
 
         <div className="card-block p-2">
           <h4 className="card-title">{this.props.article.title}</h4>
