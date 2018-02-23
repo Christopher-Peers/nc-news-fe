@@ -3,8 +3,8 @@ import React from 'react';
 const TopPosters = (props) => {
 
     let ascendingPosters = Object.entries(props.topPosters).sort((a, b) => {
-      if (a[1].posts < b[1].posts) -1
-      else if (a[1].posts > b[1].posts) 1
+      if (a[1].posts < b[1].posts) return -1
+      else if (a[1].posts > b[1].posts) return 1
       else return 0
     }).slice(0, 3)
 
