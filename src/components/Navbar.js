@@ -6,7 +6,7 @@ class Navbar extends React.Component {
   state = {
     topics: [],
     topicsLoaded: false,
-    loggedInUser: 'northcoder'
+    loggedInUser: this.props.loggedInUser
   }
 
   fetchTopics = () => {

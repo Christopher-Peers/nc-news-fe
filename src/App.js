@@ -6,11 +6,15 @@ import NoMatch from './NoMatch';
 
 class App extends Component {
 
+  state = {
+    loggedInUser: 'northcoder'
+  }
+
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Navbar />
+          <Navbar loggedInUser={this.state.loggedInUser} />
           <div className="container-fluid">
           <Switch>
             <Route exact path="/" component={Homepage} />
@@ -19,7 +23,7 @@ class App extends Component {
             <Route path="/topics/:topic/articles" component={Homepage} />
             <Route component={NoMatch}/>
           </Switch>
-            {/* <Homepage /> */}
+            <Homepage loggedInUser={this.state.loggedInUser} />
           </div>
         </div>
       </BrowserRouter>

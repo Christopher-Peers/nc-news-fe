@@ -7,7 +7,8 @@ class SingleArticle extends React.Component {
     comments: [],
     commentsVisible: false,
     newComment: '',
-    votes: this.props.article.votes
+    votes: this.props.article.votes,
+    loggedInUser: this.props.loggedInUser
   }
 
   getArticleComments = (id) => {
@@ -47,6 +48,13 @@ class SingleArticle extends React.Component {
       body: JSON.stringify({"comment": userComment})
     })
       .then(res => this.getArticleComments(id))
+  }
+
+  deleteUserComment = (commentId) => {
+
+    return fetch(`${process.env.REACT_APP_API_URL}/comments/${commentId}`, {method: 'DELETE'})
+    .then(res => this.getArticleComments(this.props.article._id))
+
   }
 
   handleCommentChange = (event) => {
@@ -113,7 +121,9 @@ class SingleArticle extends React.Component {
           <div className="row bg-faded p-2" style={{ display: (this.state.commentsVisible ? "block" : "none") }}>
               {this.state.comments.map((comment, i) => (
                 
-              <p key={`commentFooterIcons${i}`}>{comment.body} | {comment.created_by} | {comment.votes} 
+              <p key={`commentFooterIcons${i}`}>{comment.body} 
+              | {comment.created_by} {comment.created_by === this.state.loggedInUser && (<i className="fa fa-trash-o" aria-hidden="true" onClick={() => {this.deleteUserComment(comment._id)}}></i>)} 
+              | <span style={{ color: (comment.votes > 0 ? "green" : "red") }}>{`  ${comment.votes}  `}</span> 
                 <i className="fa fa-heart-o" aria-hidden="true" /> 
                 <i className="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'up')}} />
                 <i className="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'down')}} />

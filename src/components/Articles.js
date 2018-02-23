@@ -10,7 +10,7 @@ const Articles = (props) => {
       {props.articles.map((article, i) => {
         // let lastFiveArticles = props.topPosters[article.created_by].lastFiveArticles;
         
-        return (<SingleArticle article={article} i={i} key={`singleArticle${i}`}/>)
+        return (<SingleArticle article={article} i={i} key={`singleArticle${i}`} loggedInUser={props.loggedInUser}/>)
 
       })}
     </section>

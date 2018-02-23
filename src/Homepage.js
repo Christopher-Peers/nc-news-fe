@@ -10,7 +10,8 @@ class Homepage extends React.Component {
     articles: [],
     articlesLoaded: false,
     topPosters: [],
-    topPostersLoaded: false
+    topPostersLoaded: false,
+    loggedInUser: 'northcoder'
   }
 
   fetchUsers = () => {
@@ -81,7 +82,7 @@ class Homepage extends React.Component {
   
     return (
       <div className="row"> 
-        <Articles articles={this.state.articles} topPosters={this.state.topPosters}/>
+        <Articles articles={this.state.articles} topPosters={this.state.topPosters} loggedInUser={this.state.loggedInUser}/>
         <TopPosters topPosters={this.state.topPosters} />
       </div>
     )
