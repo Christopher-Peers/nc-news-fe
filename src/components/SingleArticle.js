@@ -83,22 +83,22 @@ class SingleArticle extends React.Component {
           <div className="row justify-content-around">
 
             <div className="d-inline text-center">
-              <span><i class="fa fa-user-circle-o" aria-hidden="true" />
+              <span><i className="fa fa-user-circle-o" aria-hidden="true" />
                 <Modal authorName={this.props.article.created_by} />
                 
               </span>
             </div>
             <div className="d-inline text-center">
-              <i class="fa fa-question-circle-o" aria-hidden="true" /><span className="d-none d-md-inline">{`  ${this.props.article.belongs_to}`}</span>
+              <i className="fa fa-question-circle-o" aria-hidden="true" /><span className="d-none d-md-inline">{`  ${this.props.article.belongs_to}`}</span>
             </div>
             <div className="d-inline text-center">
-              <i class="fa fa-heart-o" aria-hidden="true" />
+              <i className="fa fa-heart-o" aria-hidden="true" />
               <span style={{ color: (this.props.article.votes > 0 ? "green" : "red") }}>{`  ${this.state.votes}  `}</span>
-              <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'up')}} />
-              <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'down')}} />
+              <i className="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'up')}} />
+              <i className="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'down')}} />
             </div>
             <div className="d-inline text-center">
-              <i class="fa fa-comment-o" aria-hidden="true" onClick={() => {
+              <i className="fa fa-comment-o" aria-hidden="true" onClick={() => {
                 if (this.state.commentsVisible === false) this.setState({ commentsVisible: true })
                 else this.setState({ commentsVisible: false })
               }} />
@@ -108,12 +108,12 @@ class SingleArticle extends React.Component {
           </div>
 
           <div className="row bg-faded p-2" style={{ display: (this.state.commentsVisible ? "block" : "none") }}>
-              {this.state.comments.map(comment => (
+              {this.state.comments.map((comment, i) => (
                 
-              <p>{comment.body} | {comment.created_by} | {comment.votes} 
-                <i class="fa fa-heart-o" aria-hidden="true" /> 
-                <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'up')}} />
-                <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'down')}} />
+              <p key={`commentFooterIcons${i}`}>{comment.body} | {comment.created_by} | {comment.votes} 
+                <i className="fa fa-heart-o" aria-hidden="true" /> 
+                <i className="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'up')}} />
+                <i className="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'down')}} />
             </p>))}
             <form>
               <input type="text" placeholder="your comment here" onChange={this.handleCommentChange}></input><button onClick={this.handleCommentClick} >Submit</button>
