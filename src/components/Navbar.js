@@ -47,12 +47,12 @@ class Navbar extends React.Component {
               <li className="nav-item dropdown">
                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Topics</Link>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  {this.state.topics.map(topic => (<Link className="dropdown-item" to={`/topics/${topic.slug}/articles`}>{`${topic.title}`}</Link>))}
+                  {this.state.topics.map((topic, i) => (<Link className="dropdown-item" to={`/topics/${topic.slug}/articles`} key={`topicKey${i}`}>{`${topic.title}`}</Link>))}
                 </div>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/users">Users</Link>
-              </li>
+              </li> 
             </ul>
           </div>
           <span className="mr-2 d-none d-md-block">Current user:</span> 
