@@ -23,7 +23,7 @@ class App extends Component {
             <Route path="/topics/:topic/articles" component={Homepage} />
             <Route component={NoMatch}/>
           </Switch>
-            <Homepage loggedInUser={this.state.loggedInUser} />
+            {/* <Homepage loggedInUser={this.state.loggedInUser} /> */}
           </div>
         </div>
       </BrowserRouter>

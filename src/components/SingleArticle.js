@@ -96,7 +96,6 @@ class SingleArticle extends React.Component {
             <div className="d-inline text-center">
               <span><i className="fa fa-user-circle-o" aria-hidden="true" />
                 <Modal authorName={this.props.article.created_by} />
-                
               </span>
             </div>
             <div className="d-inline text-center">
@@ -105,11 +104,11 @@ class SingleArticle extends React.Component {
             <div className="d-inline text-center">
               <i className="fa fa-heart-o" aria-hidden="true" />
               <span style={{ color: (this.props.article.votes > 0 ? "green" : "red") }}>{`  ${this.state.votes}  `}</span>
-              <i className="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'up')}} />
-              <i className="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'down')}} />
+              <i className="fa fa-chevron-up pointer" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'up')}} />
+              <i className="fa fa-chevron-down pointer" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'down')}} />
             </div>
             <div className="d-inline text-center">
-              <i className="fa fa-comment-o" aria-hidden="true" onClick={() => {
+              <i className="fa fa-comment-o pointer" aria-hidden="true" onClick={() => {
                 if (this.state.commentsVisible === false) this.setState({ commentsVisible: true })
                 else this.setState({ commentsVisible: false })
               }} />
@@ -122,11 +121,11 @@ class SingleArticle extends React.Component {
               {this.state.comments.map((comment, i) => (
                 
               <p key={`commentFooterIcons${i}`}>{comment.body} 
-              | {comment.created_by} {comment.created_by === this.state.loggedInUser && (<i className="fa fa-trash-o" aria-hidden="true" onClick={() => {this.deleteUserComment(comment._id)}}></i>)} 
+              | {comment.created_by} {comment.created_by === this.state.loggedInUser && (<i className="fa fa-trash-o pointer" aria-hidden="true" onClick={() => {this.deleteUserComment(comment._id)}}></i>)} 
               | <span style={{ color: (comment.votes > 0 ? "green" : "red") }}>{`  ${comment.votes}  `}</span> 
                 <i className="fa fa-heart-o" aria-hidden="true" /> 
-                <i className="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'up')}} />
-                <i className="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'down')}} />
+                <i className="fa fa-chevron-up pointer" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'up')}} />
+                <i className="fa fa-chevron-down pointer" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'down')}} />
             </p>))}
             <form>
               <input type="text" placeholder="your comment here" onChange={this.handleCommentChange}></input><button onClick={this.handleCommentClick} >Submit</button>
