@@ -1,10 +1,12 @@
 import React from 'react';
+import Modal from './Modal';
 
 class SingleArticle extends React.Component {
 
   state = {
     comments: [],
     commentsVisible: false,
+    newComment: '',
     votes: this.props.article.votes
   }
 
@@ -19,17 +21,6 @@ class SingleArticle extends React.Component {
       })
       .catch(err => console.log(err))
   }
-
-  postNewArticleComment = (id, userComment) => {
-
-    return fetch(`https://${process.env.REACT_APP_API_URL}/articles/${id}/comments`, {
-      method: 'POST',
-      body: { comment: userComment }
-    })
-      .then(buffer => buffer.json())
-      .then(res => res)
-      .catch(err => console.log(err))
-  };
 
   changeArticleVote = (articleId, modifier) => {
 
@@ -48,8 +39,34 @@ class SingleArticle extends React.Component {
 
   }
 
+  postNewArticleComment = (id, userComment) => {
+    
+    return fetch(`${process.env.REACT_APP_API_URL}/articles/${id}/comments`, {
+      method: 'POST',
+      headers: new Headers({"Content-Type": "application/json"}),
+      body: JSON.stringify({"comment": userComment})
+    })
+      .then(res => this.getArticleComments(id))
+  }
+
+  handleCommentChange = (event) => {
+    this.setState({
+      newComment: event.target.value
+    })
+  }
+
+  handleCommentClick = (event) => {
+    event.preventDefault();
+    this.postNewArticleComment(this.props.article._id, this.state.newComment)
+  }
+
   componentWillMount() {
     this.getArticleComments(this.props.article._id)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // this.setState({votes: nextProps.article.votes})
+    this.getArticleComments(nextProps.article._id)
   }
 
   render() {
@@ -67,14 +84,17 @@ class SingleArticle extends React.Component {
           <div className="row justify-content-around">
 
             <div className="d-inline text-center">
-              <span><i class="fa fa-user-circle-o" aria-hidden="true" /><span className="d-none d-md-inline">{` ${this.props.article.created_by}`}</span></span>
+              <span><i class="fa fa-user-circle-o" aria-hidden="true" />
+                <Modal authorName={this.props.article.created_by} />
+                
+              </span>
             </div>
             <div className="d-inline text-center">
-              <i class="fa fa-question-circle-o" aria-hidden="true" /><span className="d-none d-md-inline">{` ${this.props.article.belongs_to}`}</span>
+              <i class="fa fa-question-circle-o" aria-hidden="true" /><span className="d-none d-md-inline">{`  ${this.props.article.belongs_to}`}</span>
             </div>
             <div className="d-inline text-center">
               <i class="fa fa-heart-o" aria-hidden="true" />
-              <span style={{ color: (this.state.votes > 0 ? "green" : "red") }}>{`  ${this.state.votes}  `}</span>
+              <span style={{ color: (this.props.article.votes > 0 ? "green" : "red") }}>{`  ${this.props.article.votes}  `}</span>
               <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'up')}} />
               <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeArticleVote(this.props.article._id, 'down')}} />
             </div>
@@ -83,7 +103,7 @@ class SingleArticle extends React.Component {
                 if (this.state.commentsVisible === false) this.setState({ commentsVisible: true })
                 else this.setState({ commentsVisible: false })
               }} />
-              <span> {` ${this.state.comments.length}`}</span>
+              <span> {`  ${this.state.comments.length}`}</span>
             </div>
 
           </div>
@@ -96,7 +116,9 @@ class SingleArticle extends React.Component {
                 <i class="fa fa-chevron-up" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'up')}} />
                 <i class="fa fa-chevron-down" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'down')}} />
             </p>))}
-            <input type="text" placeholder="your comment here"></input><button type="submit">Submit</button>
+            <form>
+              <input type="text" placeholder="your comment here" onChange={this.handleCommentChange}></input><button onClick={this.handleCommentClick} >Submit</button>
+            </form>
           </div>
         </div>
 
@@ -104,8 +126,6 @@ class SingleArticle extends React.Component {
 
     )
   }
-
-
 }
 
 export default SingleArticle;

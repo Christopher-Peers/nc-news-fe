@@ -48,12 +48,18 @@ class Homepage extends React.Component {
 
     if (nextState.articlesLoaded && nextState.usersLoaded && !nextState.topPostersLoaded) {
       let userTally = {};
-      nextState.users.map(user => userTally[user.username] = {
+      nextState.users.map(user => {
+        
+        userTally[user.username] = {
         avatar: user.avatar_url,
-        posts: 0
+        posts: 0,
+        lastFiveArticles: []
+        }
+
       })
       nextState.articles.map(article => {
         userTally[article.created_by].posts++
+        userTally[article.created_by].lastFiveArticles.push(article) 
       })
       this.setState({
         topPosters: userTally,
@@ -72,10 +78,10 @@ class Homepage extends React.Component {
 }
 
   render() {
-    
+  
     return (
       <div className="row"> 
-        <Articles articles={this.state.articles} />
+        <Articles articles={this.state.articles} topPosters={this.state.topPosters}/>
         <TopPosters topPosters={this.state.topPosters} />
       </div>
     )
