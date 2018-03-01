@@ -17,7 +17,8 @@ const Modal = (props) => {
               </button>
             </div>
             <div className="modal-body">
-              ...
+              <h3>Last 5 Articles</h3>
+              <h4>User Rating ***</h4>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
