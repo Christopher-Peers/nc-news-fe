@@ -3,8 +3,8 @@ import React from 'react';
 const Modal = (props) => {
   
   return (
-    <div>
-      <span className="d-none d-md-inline" data-toggle="modal" data-target="#exampleModal" >{`  ${props.authorName}`}</span>
+    <div className="d-none d-md-inline pointer">
+      <span className="d-none d-md-inline pointer" data-toggle="modal" data-target="#exampleModal" >{`  ${props.authorName}`}</span>
 
 
       <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
