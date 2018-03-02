@@ -10,7 +10,7 @@ const TopPosters = (props) => {
 
     return (
 
-      <aside className="d-none d-md-block col-md-3">
+      <aside className="d-none d-md-block col-md-3 mt-1">
         <h2 className="text-center">Top Posters</h2>
 
         {ascendingPosters.map((user, i) => {
