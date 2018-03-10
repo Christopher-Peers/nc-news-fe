@@ -63,6 +63,14 @@ class Users extends React.Component {
               <div className="col-3 d-flex align-items-center">
                 <h4>Rating : {user.stars} <i className="fa fa-star-o" aria-hidden="true"></i></h4>
               </div>
+              <div className="col-3 d-flex align-items-center">
+                {this.state.users.map((user, i) => {
+                  user.articles.length > 0 &&
+                  user.articles.slice(0,2).forEach(article => (<p>{article.title}</p>))
+                  
+                })}
+              </div>
+
             </div>
           )
         })}

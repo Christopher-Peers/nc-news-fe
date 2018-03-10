@@ -20,11 +20,9 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Homepage} />
             <Route exact path="/users" component={Users} />
-            {/* <Route exact path="/articles" component={ArticlesPage} /> */}
             <Route path="/topics/:topic/articles" component={Homepage} />
             <Route component={NoMatch}/>
           </Switch>
-            {/* <Homepage loggedInUser={this.state.loggedInUser} /> */}
           </div>
         </div>
       </BrowserRouter>

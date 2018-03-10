@@ -1,7 +1,7 @@
 ## Northcoders News FE
 ### About
 
-Welcome to Northcoders News a reddit style web app to showcase what I have learned so far. The frontend was built using React. If you wish to go straight to a deployed version goto https://cpeers-nc-news/api (correct this once deployed)
+Welcome to Northcoders News a reddit style web app to showcase what I have learned so far. The frontend was built using React v16.2.0. If you wish to go straight to a deployed version goto https://cpeers-nc-news/api (correct this once deployed)
 
 ### Check your dependecies
 
