@@ -65,7 +65,10 @@ class SingleArticle extends React.Component {
 
   handleCommentClick = (event) => {
     event.preventDefault();
-    this.postNewArticleComment(this.props.article._id, this.state.newComment)
+    return this.postNewArticleComment(this.props.article._id, this.state.newComment)
+      .then(res => {
+        return this.setState({ newComment: '' });
+      })
   }
 
   componentWillMount() {
@@ -128,7 +131,7 @@ class SingleArticle extends React.Component {
                 <i className="fa fa-chevron-down pointer" aria-hidden="true" onClick={() => {this.changeCommentVotes(comment._id, 'down')}} />
             </p>))}
             <form>
-              <input type="text" placeholder="your comment here" onChange={this.handleCommentChange}></input><button onClick={this.handleCommentClick} >Submit</button>
+              <input type="text" placeholder="your comment here" value={this.state.newComment} onChange={this.handleCommentChange}></input><button onClick={this.handleCommentClick} >Submit</button>
             </form>
           </div>
         </div>
